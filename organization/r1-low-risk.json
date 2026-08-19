@@ -1,0 +1,51 @@
+{
+  "name": "OSSVN R1 Low Risk - set risk_level target",
+  "target": "branch",
+  "source_type": "Organization",
+  "enforcement": "disabled",
+  "bypass_actors": [],
+  "conditions": {
+    "repository_name": {
+      "exclude": [],
+      "include": [
+        "__SET_RISK_LEVEL_R1_BEFORE_ACTIVATION__"
+      ]
+    },
+    "ref_name": {
+      "exclude": [],
+      "include": [
+        "~DEFAULT_BRANCH"
+      ]
+    }
+  },
+  "rules": [
+    {
+      "type": "pull_request",
+      "parameters": {
+        "require_code_owner_review": false,
+        "require_last_push_approval": false,
+        "dismiss_stale_reviews_on_push": false,
+        "required_approving_review_count": 1,
+        "required_review_thread_resolution": true
+      }
+    },
+    {
+      "type": "required_status_checks",
+      "parameters": {
+        "do_not_enforce_on_create": false,
+        "required_status_checks": [
+          {
+            "context": "validate"
+          },
+          {
+            "context": "test"
+          },
+          {
+            "context": "build"
+          }
+        ],
+        "strict_required_status_checks_policy": false
+      }
+    }
+  ]
+}

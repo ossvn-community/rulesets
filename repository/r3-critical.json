@@ -1,0 +1,48 @@
+{
+  "name": "OSSVN R3 Critical",
+  "target": "branch",
+  "source_type": "Repository",
+  "enforcement": "disabled",
+  "conditions": {
+    "ref_name": {
+      "exclude": [],
+      "include": [
+        "~DEFAULT_BRANCH"
+      ]
+    }
+  },
+  "rules": [
+    {
+      "type": "pull_request",
+      "parameters": {
+        "require_code_owner_review": true,
+        "require_last_push_approval": true,
+        "dismiss_stale_reviews_on_push": true,
+        "required_approving_review_count": 2,
+        "required_review_thread_resolution": true
+      }
+    },
+    {
+      "type": "required_status_checks",
+      "parameters": {
+        "do_not_enforce_on_create": false,
+        "required_status_checks": [
+          {
+            "context": "validate"
+          },
+          {
+            "context": "test"
+          },
+          {
+            "context": "build"
+          },
+          {
+            "context": "security"
+          }
+        ],
+        "strict_required_status_checks_policy": true
+      }
+    }
+  ],
+  "bypass_actors": []
+}

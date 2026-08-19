@@ -1,0 +1,38 @@
+{
+  "name": "OSSVN R0 Content - set risk_level target",
+  "target": "branch",
+  "source_type": "Organization",
+  "enforcement": "disabled",
+  "bypass_actors": [],
+  "conditions": {
+    "repository_name": {
+      "exclude": [],
+      "include": [
+        "__SET_RISK_LEVEL_R0_BEFORE_ACTIVATION__"
+      ]
+    },
+    "ref_name": {
+      "exclude": [],
+      "include": [
+        "~DEFAULT_BRANCH"
+      ]
+    }
+  },
+  "rules": [
+    {
+      "type": "required_status_checks",
+      "parameters": {
+        "do_not_enforce_on_create": false,
+        "required_status_checks": [
+          {
+            "context": "validate"
+          },
+          {
+            "context": "links"
+          }
+        ],
+        "strict_required_status_checks_policy": false
+      }
+    }
+  ]
+}
