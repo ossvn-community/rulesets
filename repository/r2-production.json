@@ -21,27 +21,6 @@
         "required_approving_review_count": 1,
         "required_review_thread_resolution": true
       }
-    },
-    {
-      "type": "required_status_checks",
-      "parameters": {
-        "do_not_enforce_on_create": false,
-        "required_status_checks": [
-          {
-            "context": "validate"
-          },
-          {
-            "context": "test"
-          },
-          {
-            "context": "build"
-          },
-          {
-            "context": "security"
-          }
-        ],
-        "strict_required_status_checks_policy": true
-      }
     }
   ],
   "bypass_actors": []

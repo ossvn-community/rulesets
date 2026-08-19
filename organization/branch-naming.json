@@ -1,0 +1,32 @@
+{
+  "name": "OSSVN Branch Naming",
+  "target": "branch",
+  "source_type": "Organization",
+  "enforcement": "disabled",
+  "bypass_actors": [],
+  "conditions": {
+    "repository_name": {
+      "exclude": [],
+      "include": [
+        "~ALL"
+      ]
+    },
+    "ref_name": {
+      "exclude": [],
+      "include": [
+        "~ALL"
+      ]
+    }
+  },
+  "rules": [
+    {
+      "type": "branch_name_pattern",
+      "parameters": {
+        "name": "Use type/short-kebab-case or main",
+        "negate": false,
+        "operator": "regex",
+        "pattern": "^(main|(feat|fix|docs|refactor|test|chore|ci)/[a-z0-9]+(?:-[a-z0-9]+)*)$"
+      }
+    }
+  ]
+}
