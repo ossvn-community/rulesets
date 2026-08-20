@@ -5,7 +5,6 @@ import sys
 ROOT = Path(__file__).resolve().parents[1]
 EXPECTED = {
     "baseline.json",
-    "branch-naming.json",
     "r0-content.json",
     "r1-low-risk.json",
     "r2-production.json",
@@ -75,10 +74,8 @@ def validate_recipe(path: Path, expected_source: str) -> list[str]:
         ref_name = conditions.get("ref_name")
         if not isinstance(ref_name, dict):
             errors.append(f"{relative}: conditions.ref_name must be an object")
-        else:
-            expected_ref = "~ALL" if path.name == "branch-naming.json" else "~DEFAULT_BRANCH"
-            if expected_ref not in ref_name.get("include", []):
-                errors.append(f"{relative}: ref_name.include must contain {expected_ref}")
+        elif "~DEFAULT_BRANCH" not in ref_name.get("include", []):
+            errors.append(f"{relative}: ref_name.include must contain ~DEFAULT_BRANCH")
 
         if path.parent.name == "organization":
             repository_name = conditions.get("repository_name")
@@ -86,10 +83,10 @@ def validate_recipe(path: Path, expected_source: str) -> list[str]:
                 errors.append(f"{relative}: conditions.repository_name must be an object")
             else:
                 include = repository_name.get("include")
-                if path.name in {"baseline.json", "branch-naming.json"}:
+                if path.name == "baseline.json":
                     if include != ["~ALL"]:
                         errors.append(
-                            f"{relative}: repository_name.include must be ['~ALL']"
+                            f"{relative}: baseline repository_name.include must be ['~ALL']"
                         )
                 else:
                     expected_placeholder = ORG_PLACEHOLDERS[path.name]
@@ -113,9 +110,6 @@ def validate_recipe(path: Path, expected_source: str) -> list[str]:
             errors.append(
                 f"{relative}: risk recipes must not hard-code required_status_checks"
             )
-
-        if path.name == "branch-naming.json" and "branch_name_pattern" not in rule_types:
-            errors.append(f"{relative}: branch naming recipe must include branch_name_pattern")
 
     bypass_actors = data.get("bypass_actors", [])
     if not isinstance(bypass_actors, list):
