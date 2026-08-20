@@ -1,0 +1,32 @@
+{
+  "name": "OSSVN Required Checks - EDIT BEFORE IMPORT",
+  "target": "branch",
+  "source_type": "Repository",
+  "enforcement": "disabled",
+  "conditions": {
+    "ref_name": {
+      "exclude": [],
+      "include": [
+        "~DEFAULT_BRANCH"
+      ]
+    }
+  },
+  "rules": [
+    {
+      "type": "required_status_checks",
+      "parameters": {
+        "do_not_enforce_on_create": false,
+        "required_status_checks": [
+          {
+            "context": "validate"
+          },
+          {
+            "context": "links"
+          }
+        ],
+        "strict_required_status_checks_policy": false
+      }
+    }
+  ],
+  "bypass_actors": []
+}
